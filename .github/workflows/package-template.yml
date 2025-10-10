@@ -2,8 +2,10 @@ name: Build and Release Visual Studio Multi-project Template
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*' ]
+    branches:
+      - main
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -26,7 +28,7 @@ jobs:
           set -e
           mkdir -p template/.template.config
           cp -r src OTManager.Data OTManager.Core OTManager.App README.md LICENSE.txt template/
-          # Copia el archivo de solución si existe
+          # Copia el archivo de soluciÃ³n si existe
           if [ -f OTManager.Wapi.sln ]; then cp OTManager.Wapi.sln template/; fi
           echo '{
   "author": "${{ github.repository_owner }}",
