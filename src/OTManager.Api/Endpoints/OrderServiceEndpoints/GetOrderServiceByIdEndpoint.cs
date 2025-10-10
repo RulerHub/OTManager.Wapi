@@ -6,8 +6,8 @@ namespace OTManager.Api.Endpoints.OrderServiceEndpoints;
 
 public class GetOrderServiceByIdEndpoint : EndpointWithoutRequest
 {
-    private readonly IOrderServiceService _service;
-    public GetOrderServiceByIdEndpoint(IOrderServiceService service) => _service = service;
+    private readonly IOrderServiceAppService _service;
+    public GetOrderServiceByIdEndpoint(IOrderServiceAppService service) => _service = service;
 
     public override void Configure()
     {

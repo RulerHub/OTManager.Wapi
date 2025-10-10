@@ -5,9 +5,9 @@ using OTManager.Core.Entities.OT;
 
 namespace OTManager.Data.Configs;
 
-public class ServiceConfig : IEntityTypeConfiguration<OrderService>
+public class ServiceConfig : IEntityTypeConfiguration<ServiceOrder>
 {
-    public void Configure(EntityTypeBuilder<OrderService> builder)
+    public void Configure(EntityTypeBuilder<ServiceOrder> builder)
     {
         builder.HasKey(s => s.Id);
 

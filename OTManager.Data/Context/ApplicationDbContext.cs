@@ -13,7 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Material> Materials => Set<Material>();
     public DbSet<MaterialCost> MaterialCosts => Set<MaterialCost>();
     public DbSet<Order> Orders => Set<Order>();
-    public DbSet<OrderService> Services => Set<OrderService>();
+    public DbSet<ServiceOrder> Services => Set<ServiceOrder>();
     public DbSet<ServiceCost> ServiceCosts => Set<ServiceCost>();
     public DbSet<Worker> Workers => Set<Worker>();
     public DbSet<WorkerCost> WorkerCosts => Set<WorkerCost>();

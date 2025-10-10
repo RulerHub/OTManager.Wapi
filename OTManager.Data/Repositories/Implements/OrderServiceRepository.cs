@@ -10,7 +10,7 @@ public class OrderServiceRepository(ApplicationDbContext context) : IOrderServic
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task AddAsync(OrderService entity)
+    public async Task AddAsync(ServiceOrder entity)
     {
         await _context.Services.AddAsync(entity);
         await _context.SaveChangesAsync();
@@ -24,13 +24,13 @@ public class OrderServiceRepository(ApplicationDbContext context) : IOrderServic
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<OrderService>> GetAllAsync()
+    public async Task<IEnumerable<ServiceOrder>> GetAllAsync()
         => await _context.Services.ToListAsync();
 
-    public async Task<OrderService?> GetByIdAsync(Guid id)
+    public async Task<ServiceOrder?> GetByIdAsync(Guid id)
         => await _context.Services.FirstOrDefaultAsync(f => f.Id == id);
 
-    public async Task<(IEnumerable<OrderService> Items, int TotalCount)> GetFilteredAsync(OrderServiceQueryParams query)
+    public async Task<(IEnumerable<ServiceOrder> Items, int TotalCount)> GetFilteredAsync(OrderServiceQueryParams query)
     {
         var q = _context.Services.AsQueryable();
         if (!string.IsNullOrWhiteSpace(query.Search))
@@ -46,7 +46,7 @@ public class OrderServiceRepository(ApplicationDbContext context) : IOrderServic
         return (items, total);
     }
 
-    public async Task UpdateAsync(OrderService entity)
+    public async Task UpdateAsync(ServiceOrder entity)
     {
         _context.Services.Update(entity);
         await _context.SaveChangesAsync();

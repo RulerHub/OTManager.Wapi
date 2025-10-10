@@ -56,7 +56,7 @@ public class OrderServiceAppService : IOrderServiceAppService
 
     public async Task<ReadOrderServiceDto> CreateAsync(ReadOrderServiceDto dto)
     {
-        var entity = new OTManager.Core.Entities.OT.OrderService
+        var entity = new ServiceOrder
         {
             Id = Guid.NewGuid(),
             Name = dto.Name ?? string.Empty,

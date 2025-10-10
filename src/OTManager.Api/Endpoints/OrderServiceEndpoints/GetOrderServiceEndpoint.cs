@@ -1,13 +1,13 @@
 using FastEndpoints;
+using OTManager.App.Dtos.Orders;
 using OTManager.App.Services.Interfaces;
-using OTManager.Core.QueryParams;
 
 namespace OTManager.Api.Endpoints.OrderServiceEndpoints;
 
-public class GetOrderServiceEndpoint : Endpoint<OrderServiceQueryParams>
+public class GetOrderServiceEndpoint : EndpointWithoutRequest
 {
-    private readonly IOrderServiceService _service;
-    public GetOrderServiceEndpoint(IOrderServiceService service) => _service = service;
+    private readonly IOrderServiceAppService _service;
+    public GetOrderServiceEndpoint(IOrderServiceAppService service) => _service = service;
 
     public override void Configure()
     {
@@ -15,17 +15,13 @@ public class GetOrderServiceEndpoint : Endpoint<OrderServiceQueryParams>
         AllowAnonymous();
         Summary(s =>
         {
-            s.Summary = "Obtiene una lista paginada de servicios de orden.";
-            s.Description = "Devuelve servicios de orden filtrados y paginados.";
+            s.Summary = "Obtiene todos los servicios de orden.";
         });
     }
 
-    public override async Task HandleAsync(OrderServiceQueryParams req, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
-        if (req.Page < 1) AddError(r => r.Page, "El número de página debe ser mayor o igual a 1.");
-        if (req.PageSize < 1 || req.PageSize > 100) AddError(r => r.PageSize, "El tamaño de página debe estar entre 1 y 100.");
-        if (ValidationFailed) return;
-        var (items, total) = await _service.GetFilteredAsync(req);
-        await HttpContext.Response.SendAsync(new { items, total }, 200, null, ct);
+        var result = await _service.GetAllAsync();
+        await HttpContext.Response.SendAsync(result, 200, null, ct);
     }
 }
