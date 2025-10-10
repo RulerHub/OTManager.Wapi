@@ -1,0 +1,9 @@
+namespace OTManager.App.Dtos.Materials;
+
+public class WriteMaterialDto
+{
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string MeasureUnit { get; set; } = string.Empty;
+    public decimal UnitCost { get; set; }
+}

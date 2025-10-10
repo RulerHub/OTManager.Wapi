@@ -1,0 +1,6 @@
+@OTManager.Api_HostAddress = http://localhost:5226
+
+GET {{OTManager.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
