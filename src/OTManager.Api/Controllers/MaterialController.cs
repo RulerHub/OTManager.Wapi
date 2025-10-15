@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using OTManager.App.Services.Interfaces;
+
 using OTManager.App.Dtos.Materials;
+using OTManager.App.Services.Interfaces;
+using OTManager.Core.QueryParams;
 
 namespace OTManager.Api.Controllers;
 
@@ -16,10 +18,10 @@ public class MaterialController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] MaterialQueryParams query)
     {
-        var result = await _materialService.GetAllAsync();
-        return Ok(result);
+        var (Items, TotalCount) = await _materialService.GetFilteredAsync(query);
+        return Ok(new { Items, TotalCount });
     }
 
     [HttpGet("{id}")]

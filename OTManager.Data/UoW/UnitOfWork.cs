@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+
 using OTManager.Data.Context;
 using OTManager.Data.Repositories.Implements;
 using OTManager.Data.Repositories.Interface;
-using System;
-using System.Threading.Tasks;
 
 namespace OTManager.Data.UoW
 {

@@ -38,7 +38,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,17 +50,19 @@ namespace OTManager.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Facture", b =>
@@ -81,7 +84,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
@@ -89,25 +93,27 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("TotalPrice")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Features");
+                    b.ToTable("Facture", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Material", b =>
@@ -126,7 +132,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MeasureUnit")
                         .IsRequired()
@@ -139,23 +146,25 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("UnitCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Material", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.MaterialCost", b =>
@@ -174,7 +183,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MeasureUnit")
                         .IsRequired()
@@ -190,27 +200,29 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("Quantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,6)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<decimal>("UnitCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
@@ -218,7 +230,7 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("MaterialCosts");
+                    b.ToTable("MaterialCost", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Order", b =>
@@ -235,7 +247,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -251,13 +264,14 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -265,50 +279,10 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("CreatedAt");
 
-                    b.HasIndex("OrderNumber");
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OTManager.Core.Entities.OT.OrderService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Services");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.ServiceCost", b =>
@@ -365,6 +339,47 @@ namespace OTManager.Data.Migrations
                     b.ToTable("ServiceCosts");
                 });
 
+            modelBuilder.Entity("OTManager.Core.Entities.OT.ServiceOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Services");
+                });
+
             modelBuilder.Entity("OTManager.Core.Entities.OT.Worker", b =>
                 {
                     b.Property<Guid>("Id")
@@ -380,7 +395,7 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("HourlyRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<string>("Name")
@@ -417,12 +432,12 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("HourlyRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<decimal>("HoursWorked")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<string>("Name")
@@ -434,7 +449,7 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<DateTime?>("UpdatedAt")

@@ -1,0 +1,40 @@
+﻿@page "/settings/users"
+
+@layout SettingsLayout
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Horizontal">
+    <FluentLabel Typo="Typography.PaneHeader">
+        Users Settings
+    </FluentLabel>
+    <div>
+        <FluentButton>Add</FluentButton>
+        <FluentButton>Export</FluentButton>
+        <FluentButton>Print</FluentButton>
+    </div>
+    
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">Home</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem Href="/settings">Settings</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>Users</FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</FluentStack>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Stretch"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Vertical"
+             Style="margin: 20px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+    @if (users == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        @* <FluentDataGrid Id="users" Items="@users" GridTemplateColumns="1fr 1fr 1fr" TGridItem="ApplicationUser">
+            <PropertyColumn Title="Id" Property="@(u => u!.Id)" Sortable="true" Align="Align.Start" />
+            <PropertyColumn Title="Name" Property="@(u => u!.UserName)" Sortable="true" Align="Align.Center" />
+            <PropertyColumn Title="EMail" Property="@(u => u!.Email)" Sortable="true" Align="Align.Center" />
+        </FluentDataGrid> *@
+    }
+</FluentStack>

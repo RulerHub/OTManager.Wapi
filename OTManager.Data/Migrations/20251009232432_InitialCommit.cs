@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -71,7 +70,7 @@ namespace OTManager.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HourlyRate = table.Column<decimal>(type: "decimal(2,4)", nullable: false, defaultValue: 0m),
+                    HourlyRate = table.Column<decimal>(type: "decimal(2,2)", nullable: false, defaultValue: 0m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -200,10 +199,10 @@ namespace OTManager.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HourlyRate = table.Column<decimal>(type: "decimal(2,4)", nullable: false, defaultValue: 0m),
+                    HourlyRate = table.Column<decimal>(type: "decimal(2,2)", nullable: false, defaultValue: 0m),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HoursWorked = table.Column<decimal>(type: "decimal(2,4)", nullable: false, defaultValue: 0m),
-                    TotalCost = table.Column<decimal>(type: "decimal(2,4)", nullable: false, defaultValue: 0m),
+                    HoursWorked = table.Column<decimal>(type: "decimal(2,2)", nullable: false, defaultValue: 0m),
+                    TotalCost = table.Column<decimal>(type: "decimal(2,2)", nullable: false, defaultValue: 0m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
