@@ -1,6 +1,8 @@
 ﻿@page "/settings/users"
+@using OTManager.Web.ClientServices.Authorize
 
 @layout SettingsLayout
+@inject UserService uService
 
 <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
              VerticalAlignment="VerticalAlignment.Top"

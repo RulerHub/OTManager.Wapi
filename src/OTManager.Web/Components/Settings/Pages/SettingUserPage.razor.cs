@@ -1,20 +1,31 @@
-﻿namespace OTManager.Web.Components.Settings.Pages;
+﻿using OTManager.Web.ClientServices.DTOs.Identity;
+
+namespace OTManager.Web.Components.Settings.Pages;
 
 public partial class SettingUserPage
 {
-    public IQueryable<string>? users;
+    public IQueryable<UserReadDto>? users;
 
     protected override async Task OnInitializedAsync()
     {
         // Simulate asynchronous loading to demonstrate a loading indicator
         await Task.Delay(500);
-        GetAll();
+        await GetAllAsync();
 
     }
 
-    private void GetAll()
+    private async Task GetAllAsync()
     {
-        //var response = await _user.Users.ToListAsync();
-        //if (response is not null) users = response.AsQueryable();
+        await uService.GetAll();
+
+        var response = await uService.GetAll();
+        if (response is not null)
+        {
+            users = await uService.GetAll();
+        }
+        else
+        {
+            users = null;
+        }
     }
 }

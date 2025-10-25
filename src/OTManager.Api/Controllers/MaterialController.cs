@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using OTManager.App.Dtos.Materials;
@@ -8,6 +9,7 @@ namespace OTManager.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class MaterialController : ControllerBase
 {
     private readonly IMaterialService _materialService;

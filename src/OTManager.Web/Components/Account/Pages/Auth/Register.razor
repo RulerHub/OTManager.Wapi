@@ -1,0 +1,29 @@
+@page "/register"
+@inject OTManager.Web.ClientServices.Authorize.AuthenticationService.IAuthService AuthService
+@inject NavigationManager Nav
+
+<h3>Register</h3>
+
+<input placeholder="Email" @bind="email" />
+<input placeholder="Password" type="password" @bind="password" />
+<button @onclick="HandleRegister">Register</button>
+<p>@message</p>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string message = string.Empty;
+
+    private async Task HandleRegister()
+    {
+        var ok = await AuthService.RegisterAsync(new OTManager.Web.ClientServices.DTOs.Identity.RegisterRequest(email, password));
+        if (ok)
+        {
+            Nav.NavigateTo("/login");
+        }
+        else
+        {
+            message = "Error registrando usuario";
+        }
+    }
+}

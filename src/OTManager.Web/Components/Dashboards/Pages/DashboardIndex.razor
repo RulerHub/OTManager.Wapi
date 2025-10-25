@@ -1,7 +1,57 @@
 ﻿@page "/Home"
+@using OTManager.Web.Components.Settings.Resources.Enums
 
-<h3>DashboardIndex</h3>
+<PageTitle>Dashboard</PageTitle>
+
+<FluentAccessibilityStatus Message="The component is display" DebugDisplay="true" />
+
+<FluentMenuButton Text="Menu" >
+
+        <FluentMenuItem>
+            <FluentLabel>BlaBla</FluentLabel>
+        </FluentMenuItem>
+        <FluentMenuItem>
+            <FluentLabel>BlaBla</FluentLabel>
+        </FluentMenuItem>
+
+</FluentMenuButton>
+
+
+
+<FluentProgressRing Max="20" Min="2" Width="100"/>
+
+<FluentCalendar DisplayName="Calendar"
+                Culture="System.Globalization.CultureInfo.CurrentCulture"/>                
+
+<FluentSelect Label="Api Language"
+              Items="@(Enum.GetValues<LocalizerSelect>().Select(i => (LocalizerSelect?)i))"
+              Height="200px"
+              Width="250px"
+              @bind-SelectedOption="@localizer" />
+
+<FluentAccordion>
+    <FluentAccordionItem Heading="Some Card" Expanded>
+        <FluentCard><FluentLabel>zfdsgsrgergergergaergaergerg</FluentLabel></FluentCard>
+    </FluentAccordionItem>
+    <FluentAccordionItem Heading="Some Card">
+        <FluentCard><FluentLabel>zfdsgsrgergergergaergaergerg</FluentLabel></FluentCard>
+    </FluentAccordionItem>
+</FluentAccordion>
+
+<FluentTabs Orientation="Orientation.Horizontal" ShowClose>
+    <FluentTab Icon="@(new Icons.Regular.Size20.PersonInfo())" >
+        <FluentCard>
+            <FluentLabel>zfdsgsrgergergergaergaergerg 1</FluentLabel>
+        </FluentCard>
+    </FluentTab>
+    <FluentTab Icon="@(new Icons.Regular.Size20.PersonInfo())">
+        <FluentCard>
+            <FluentLabel>zfdsgsrgergergergaergaergerg 2</FluentLabel>
+        </FluentCard>
+    </FluentTab>
+</FluentTabs>
+
 
 @code {
-
+    public LocalizerSelect? localizer { get; set; }
 }

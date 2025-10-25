@@ -11,12 +11,9 @@ public static class ServiceExtension
     {
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IFactureService, FactureService>();
-        services.AddScoped<IMaterialCostService, MaterialCostService>();
         services.AddScoped<IMaterialService, MaterialService>();
         services.AddScoped<IOrderServiceAppService, OrderServiceAppService>();
         services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<IServiceCostService, ServiceCostService>();
-        services.AddScoped<IWorkerCostService, WorkerCostService>();
         services.AddScoped<IWorkerService, WorkerService>();
 
         return services;

@@ -14,10 +14,7 @@ public static class RepositoryExtension
         services.AddScoped<IMaterialRepository, MaterialRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderServiceRepository, OrderServiceRepository>();
-        services.AddScoped<IServiceCostRepository, ServiceCostRepository>();
         services.AddScoped<IWorkerRepository, WorkerRepository>();
-        services.AddScoped<IWorkerCostRepository, WorkerCostRepository>();
-        services.AddScoped<IMaterialCostRepository, MaterialCostRepository>();
         return services;
     }
 }

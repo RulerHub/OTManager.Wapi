@@ -1,49 +1,79 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace OTManager.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCommit : Migration
+    public partial class AuthenticationCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Clients",
+                name: "Client",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.PrimaryKey("PK_Client", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Materials",
+                name: "Material",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MeasureUnit = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0.00m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Materials", x => x.Id);
+                    table.PrimaryKey("PK_Material", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,6 +95,86 @@ namespace OTManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Workers",
                 columns: table => new
                 {
@@ -82,7 +192,7 @@ namespace OTManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -90,84 +200,84 @@ namespace OTManager.Data.Migrations
                     OrderNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
-                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0.00m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Clients_ClientId",
+                        name: "FK_Order_Client_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Clients",
+                        principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Features",
+                name: "Facture",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0.00m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Features", x => x.Id);
+                    table.PrimaryKey("PK_Facture", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Features_Clients_ClientId",
+                        name: "FK_Facture_Client_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Clients",
+                        principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Features_Orders_OrderId",
+                        name: "FK_Facture_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaterialCosts",
+                name: "MaterialCost",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MeasureUnit = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0.00m),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(18,6)", nullable: false, defaultValue: 0m),
-                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    Quantity = table.Column<decimal>(type: "decimal(18,6)", nullable: false, defaultValue: 0.00m),
+                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0.00m),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaterialCosts", x => x.Id);
+                    table.PrimaryKey("PK_MaterialCost", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MaterialCosts_Orders_OrderId",
+                        name: "FK_MaterialCost_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceCosts",
+                name: "ServiceCost",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -184,17 +294,17 @@ namespace OTManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceCosts", x => x.Id);
+                    table.PrimaryKey("PK_ServiceCost", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceCosts_Orders_OrderId",
+                        name: "FK_ServiceCost_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkerCosts",
+                name: "WorkerCost",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -210,113 +320,118 @@ namespace OTManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkerCosts", x => x.Id);
+                    table.PrimaryKey("PK_WorkerCost", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkerCosts_Orders_OrderId",
+                        name: "FK_WorkerCost_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_Code",
-                table: "Clients",
-                column: "Code");
+                name: "IX_Client_Code",
+                table: "Client",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_CreatedAt",
-                table: "Clients",
+                name: "IX_Client_CreatedAt",
+                table: "Client",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_Name",
-                table: "Clients",
+                name: "IX_Client_Name",
+                table: "Client",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Features_ClientId",
-                table: "Features",
+                name: "IX_Facture_ClientId",
+                table: "Facture",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Features_Code",
-                table: "Features",
-                column: "Code");
+                name: "IX_Facture_Code",
+                table: "Facture",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Features_CreatedAt",
-                table: "Features",
+                name: "IX_Facture_CreatedAt",
+                table: "Facture",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Features_OrderId",
-                table: "Features",
+                name: "IX_Facture_OrderId",
+                table: "Facture",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaterialCosts_Code",
-                table: "MaterialCosts",
-                column: "Code");
+                name: "IX_Material_Code",
+                table: "Material",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaterialCosts_CreatedAt",
-                table: "MaterialCosts",
+                name: "IX_Material_CreatedAt",
+                table: "Material",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaterialCosts_Name",
-                table: "MaterialCosts",
+                name: "IX_Material_Name",
+                table: "Material",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaterialCosts_OrderId",
-                table: "MaterialCosts",
+                name: "IX_MaterialCost_Code",
+                table: "MaterialCost",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MaterialCost_CreatedAt",
+                table: "MaterialCost",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MaterialCost_Name",
+                table: "MaterialCost",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MaterialCost_OrderId",
+                table: "MaterialCost",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_Code",
-                table: "Materials",
-                column: "Code");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Materials_CreatedAt",
-                table: "Materials",
-                column: "CreatedAt");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Materials_Name",
-                table: "Materials",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_ClientId",
-                table: "Orders",
+                name: "IX_Order_ClientId",
+                table: "Order",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CreatedAt",
-                table: "Orders",
+                name: "IX_Order_CreatedAt",
+                table: "Order",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderNumber",
-                table: "Orders",
-                column: "OrderNumber");
+                name: "IX_Order_OrderNumber",
+                table: "Order",
+                column: "OrderNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceCosts_CreatedAt",
-                table: "ServiceCosts",
+                name: "IX_ServiceCost_CreatedAt",
+                table: "ServiceCost",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceCosts_Name",
-                table: "ServiceCosts",
+                name: "IX_ServiceCost_Name",
+                table: "ServiceCost",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceCosts_OrderId",
-                table: "ServiceCosts",
+                name: "IX_ServiceCost_OrderId",
+                table: "ServiceCost",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
@@ -330,18 +445,18 @@ namespace OTManager.Data.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkerCosts_CreatedAt",
-                table: "WorkerCosts",
+                name: "IX_WorkerCost_CreatedAt",
+                table: "WorkerCost",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkerCosts_Name",
-                table: "WorkerCosts",
+                name: "IX_WorkerCost_Name",
+                table: "WorkerCost",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkerCosts_OrderId",
-                table: "WorkerCosts",
+                name: "IX_WorkerCost_OrderId",
+                table: "WorkerCost",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
@@ -359,31 +474,52 @@ namespace OTManager.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Features");
+                name: "Facture");
 
             migrationBuilder.DropTable(
-                name: "MaterialCosts");
+                name: "Material");
 
             migrationBuilder.DropTable(
-                name: "Materials");
+                name: "MaterialCost");
 
             migrationBuilder.DropTable(
-                name: "ServiceCosts");
+                name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "ServiceCost");
 
             migrationBuilder.DropTable(
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "WorkerCosts");
+                name: "UserClaims");
+
+            migrationBuilder.DropTable(
+                name: "UserLogins");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "WorkerCost");
 
             migrationBuilder.DropTable(
                 name: "Workers");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Client");
         }
     }
 }

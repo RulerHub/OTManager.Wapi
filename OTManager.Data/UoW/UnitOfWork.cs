@@ -32,12 +32,6 @@ namespace OTManager.Data.UoW
         /// <inheritdoc/>
         public IFactureRepository Factures => new FactureRepository(_context);
         /// <inheritdoc/>
-        public IServiceCostRepository ServiceCosts => new ServiceCostRepository(_context);
-        /// <inheritdoc/>
-        public IMaterialCostRepository MaterialCosts => new MaterialCostRepository(_context);
-        /// <inheritdoc/>
-        public IWorkerCostRepository WorkerCosts => new WorkerCostRepository(_context);
-        /// <inheritdoc/>
         public IMaterialRepository Materials => new MaterialRepository(_context);
         /// <inheritdoc/>
         public IWorkerRepository Workers => new WorkerRepository(_context);

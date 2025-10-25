@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using OTManager.App.Dtos.Orders;
@@ -8,6 +9,7 @@ namespace OTManager.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ServiceOrderController : ControllerBase
 {
     private readonly IOrderServiceAppService _serviceOrderService;

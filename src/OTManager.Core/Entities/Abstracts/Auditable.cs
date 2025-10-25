@@ -4,7 +4,7 @@
     /// Interfaz para entidades auditables.
     /// </summary>
     /// <typeparam name="TKey">Tipo de la clave primaria.</typeparam>
-    public interface IAuditableEntity<TKey>
+    public interface IAuditableEntity<TKey> where TKey : IEquatable<TKey>
     {
         TKey Id { get; set; }
         DateTime? CreatedAt { get; set; }
@@ -16,7 +16,7 @@
         // string? DeletedBy { get; set; }
     }
 
-    public class Auditable<TKey> : IAuditableEntity<TKey>
+    public class Auditable<TKey> : IAuditableEntity<TKey> where TKey : IEquatable<TKey>
     {
         public required TKey Id { get; set; }
         public DateTime? CreatedAt { get; set; }
