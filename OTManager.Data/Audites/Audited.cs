@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using OTManager.Core.Entities.Abstracts;
-using System;
 
 namespace OTManager.Data.Audites;
 
@@ -51,4 +49,4 @@ public static class Audited
     }
 }
 
-public interface IAuditableEntity<TKey> {}
+public interface IAuditableEntity<TKey> { }

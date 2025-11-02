@@ -1,0 +1,85 @@
+﻿@page "/settings/language"
+
+@layout SettingsLayout
+@inject NavigationManager NavigationManager
+@inject IStringLocalizer<UiLanguage> UiLang
+
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Horizontal">
+    <FluentLabel Typo="Typography.PaneHeader">
+        @UiLang["SettingsLangTitle"]
+    </FluentLabel>
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">@UiLang["NavHome"]</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem Href="/settings">@UiLang["NavSettings"]</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>@UiLang["NavLanguage"]</FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</FluentStack>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Vertical"
+             Style="margin: 20px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+
+    <FluentGrid>
+        <FluentGridItem>
+            <FluentSelect Label="Api Language"
+                          Items="@(Enum.GetValues<LocalizerSelect>().Select(i => (LocalizerSelect?)i))"
+                          Height="200px"
+                          Width="250px"
+                          @bind-SelectedOption="@localizer">
+            </FluentSelect>
+            <FluentLabel>@UiLang["LangApiDescription"]</FluentLabel>
+        </FluentGridItem>
+        <FluentGridItem>
+            <FluentDivider Orientation="Orientation.Vertical"
+                           Role="DividerRole.Presentation" />
+        </FluentGridItem>
+        <FluentGridItem>
+
+            <FluentSelect Label="Color"
+                          Items="@(Enum.GetValues<LocalizerSelect>().Select(i => (LocalizerSelect?)i))"
+                          Height="200px"
+                          Width="250px"
+                          @bind-SelectedOption="@localizer" />
+
+            <div>
+                <select @bind="Culture">
+                    <option value="es-ES">Español</option>
+                    <option value="en-US">English</option>
+                </select>
+            </div>
+            <FluentLabel>@UiLang["LangUiDescription"]</FluentLabel>
+            <FluentLabel>@localizer.GetValueOrDefault()</FluentLabel>
+        </FluentGridItem>
+    </FluentGrid>
+
+</FluentStack>
+
+@code {
+    public LocalizerSelect? localizer { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Culture = CultureInfo.CurrentCulture;
+    }
+
+    private CultureInfo Culture
+    {
+        get { return CultureInfo.CurrentCulture; }
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var uri = new Uri(NavigationManager.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var cultureEscaped = Uri.EscapeDataString(value.Name);
+                var uriEscaped = Uri.EscapeDataString(uri);
+
+                NavigationManager.NavigateTo($"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}", forceLoad: true);
+            }
+        }
+    }
+}

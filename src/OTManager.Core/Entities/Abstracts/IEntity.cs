@@ -1,6 +1,6 @@
 ﻿namespace OTManager.Core.Entities.Abstracts;
 
-public interface IEntity<T>
+public interface IEntity<TKey> where TKey : IEquatable<TKey>
 {
-    T Id { get; set; }
+    TKey Id { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+
 using OTManager.Data.Context;
 using OTManager.Data.Repositories.Implements;
 using OTManager.Data.Repositories.Interface;
-using System;
-using System.Threading.Tasks;
 
 namespace OTManager.Data.UoW
 {
@@ -32,12 +31,6 @@ namespace OTManager.Data.UoW
         public IOrderRepository Orders => new OrderRepository(_context);
         /// <inheritdoc/>
         public IFactureRepository Factures => new FactureRepository(_context);
-        /// <inheritdoc/>
-        public IServiceCostRepository ServiceCosts => new ServiceCostRepository(_context);
-        /// <inheritdoc/>
-        public IMaterialCostRepository MaterialCosts => new MaterialCostRepository(_context);
-        /// <inheritdoc/>
-        public IWorkerCostRepository WorkerCosts => new WorkerCostRepository(_context);
         /// <inheritdoc/>
         public IMaterialRepository Materials => new MaterialRepository(_context);
         /// <inheritdoc/>

@@ -13,9 +13,6 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     IClientRepository Clients { get; }
     IOrderRepository Orders { get; }
     IFactureRepository Factures { get; }
-    IServiceCostRepository ServiceCosts { get; }
-    IMaterialCostRepository MaterialCosts { get; }
-    IWorkerCostRepository WorkerCosts { get; }
     IMaterialRepository Materials { get; }
     IWorkerRepository Workers { get; }
     IOrderServiceRepository OrderServices { get; }

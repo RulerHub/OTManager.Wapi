@@ -1,0 +1,46 @@
+<FluentMenuButton IconStart="@(new Icons.Regular.Size20.Options())">
+
+    <FluentMenuItem OnClick="@OnOverseeEvent">
+        <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+                     Orientation="Orientation.Horizontal">
+            <FluentIcon Icon="@Icons.Regular.Size20.Eye"
+                        Color="Color.Accent"
+                        Title="Oversee" />
+            <FluentLabel Color="Color.Accent">
+                Oversee
+            </FluentLabel>
+        </FluentStack>
+    </FluentMenuItem>
+    <FluentMenuItem OnClick="@OnEditEvent">
+        <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+                     Orientation="Orientation.Horizontal">
+            <FluentIcon Icon="@Icons.Regular.Size20.Eye"
+                        Color="Color.Accent"
+                        Title="Edite" />
+            <FluentLabel Color="Color.Accent">
+                Edite
+            </FluentLabel>
+        </FluentStack>
+    </FluentMenuItem>
+    <FluentDivider />
+    <FluentMenuItem OnClick="@OnDeleteEvent">
+        <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+                     Orientation="Orientation.Horizontal">
+            <FluentIcon Icon="@Icons.Regular.Size20.Delete"
+                        Color="Color.Warning"
+                        Title="Recently added" />
+            <FluentLabel Color="Color.Warning">
+                Delete
+            </FluentLabel>
+        </FluentStack>
+    </FluentMenuItem>
+</FluentMenuButton>
+
+@code{
+    [Parameter]
+    public EventCallback OnOverseeEvent { get; set; }
+    [Parameter]
+    public EventCallback OnEditEvent { get; set; }
+    [Parameter]
+    public EventCallback OnDeleteEvent { get; set; }
+}

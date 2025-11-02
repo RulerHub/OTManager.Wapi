@@ -14,6 +14,6 @@ public class WorkerConfig : IEntityTypeConfiguration<Worker>
         builder.HasIndex(s => s.Name);
         builder.HasIndex(s => s.CreatedAt);
 
-        builder.Property(s => s.HourlyRate).HasColumnType("decimal(2,4)").HasDefaultValue(0.00);
+        builder.Property(s => s.HourlyRate).HasColumnType("decimal(2,2)").HasDefaultValue(0.00);
     }
 }

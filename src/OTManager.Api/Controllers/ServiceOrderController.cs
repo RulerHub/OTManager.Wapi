@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OTManager.App.Services.Interfaces;
+
 using OTManager.App.Dtos.Orders;
+using OTManager.App.Services.Interfaces;
+using OTManager.Core.QueryParams;
 
 namespace OTManager.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ServiceOrderController : ControllerBase
 {
     private readonly IOrderServiceAppService _serviceOrderService;
@@ -16,10 +20,10 @@ public class ServiceOrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] OrderServiceQueryParams query)
     {
-        var result = await _serviceOrderService.GetAllAsync();
-        return Ok(result);
+        var (Items, TotalCount) = await _serviceOrderService.GetFilteredAsync(query);
+        return Ok(new { Items, TotalCount });
     }
 
     [HttpGet("{id}")]

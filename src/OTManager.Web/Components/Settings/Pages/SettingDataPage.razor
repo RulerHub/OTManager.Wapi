@@ -1,0 +1,107 @@
+﻿@page "/settings/data"
+
+@layout SettingsLayout
+
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Horizontal">
+    <FluentLabel Typo="Typography.PaneHeader">
+        Data Settings
+    </FluentLabel>
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">Home</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem Href="/settings">Settings</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>Data</FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</FluentStack>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Vertical"
+             Style="margin: 20px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+
+    <FluentGrid>
+        <FluentGridItem>
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                         VerticalAlignment="VerticalAlignment.Top"
+                         Orientation="Orientation.Vertical">
+                <FluentLabel>Audith data settings</FluentLabel>
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+            </FluentStack>
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentDivider Orientation="Orientation.Vertical"
+                           Role="DividerRole.Presentation" />
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                         VerticalAlignment="VerticalAlignment.Top"
+                         Orientation="Orientation.Vertical">
+                <FluentLabel>Audith data settings</FluentLabel>
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+                <FluentSwitch AriaLabel="Audith" CheckedMessage="Enabled" Label="Audith" />
+            </FluentStack>
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentDivider Orientation="Orientation.Vertical"
+                           Role="DividerRole.Presentation" />
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                         VerticalAlignment="VerticalAlignment.Top"
+                         Orientation="Orientation.Vertical">
+                <FluentLabel>records data settings</FluentLabel>
+                <FluentCheckbox AriaLabel="Some" Label="Record"></FluentCheckbox>
+                <FluentCheckbox AriaLabel="Some" Label="Record"></FluentCheckbox>
+                <FluentCheckbox AriaLabel="Some" Label="Record"></FluentCheckbox>
+                <FluentCheckbox AriaLabel="Some" Label="Record"></FluentCheckbox>
+                <FluentCheckbox AriaLabel="Some" Label="Record"></FluentCheckbox>
+            </FluentStack>
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentDivider Orientation="Orientation.Vertical"
+                           Role="DividerRole.Presentation" />
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                         VerticalAlignment="VerticalAlignment.Top"
+                         Orientation="Orientation.Vertical">
+                <FluentLabel>Db Context</FluentLabel>
+                <FluentTextField AriaLabel="ServerName"
+                                 DisplayName="ServerName"
+                                 Placeholder="EnterpriseServer_01"
+                                 Disabled />
+                <FluentTextField AriaLabel="DbName"
+                                 DisplayName="DbName"
+                                 Placeholder="EnterpriseDb_01"
+                                 Disabled />
+                <FluentLabel>
+                    Status
+                    <FluentBadge Appearance="Appearance.Accent">Connected</FluentBadge>
+                </FluentLabel>
+                <FluentLabel>
+                    Healthy
+                    <FluentBadge Appearance="Appearance.Accent">Good</FluentBadge>
+                </FluentLabel>
+            </FluentStack>
+        </FluentGridItem>
+    </FluentGrid>
+</FluentStack>
+
+@code{
+
+}

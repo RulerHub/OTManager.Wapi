@@ -1,0 +1,12 @@
+# CODEOWNERS file
+# Propietarios por área. Reemplaza o añade GitHub handles reales según corresponda.
+
+# Responsable principal mantiene todo
+* @adrianmesasacasas
+
+# Áreas específicas (asignadas temporalmente al responsable principal)
+/src/OTManager.Api/ @adrianmesasacasas
+/src/OTManager.Web/ @adrianmesasacasas
+/src/OTManager.Data/ @adrianmesasacasas
+
+# Nota: para añadir más revisores automáticos, reemplaza los handles anteriores por los nombres reales de los colaboradores o equipos (p. ej. @org/eq-api).

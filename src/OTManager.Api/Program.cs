@@ -1,13 +1,15 @@
 using OTManager.Api.Extensions;
-using FastEndpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Usar el nombre de clase estático para evitar ambigüedad
+builder.AddServiceDefaults();
+
+// Usar el nombre de clase estÃ¡tico para evitar ambigÃ¼edad
 ApplicationDependencyInjection.AddApplicationDependency(builder.Services, builder.Configuration);
-builder.Services.AddFastEndpoints();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -19,6 +21,10 @@ app.AddSwaggerBuilder(app.Environment);
 
 app.UseHttpsRedirection();
 
-app.UseFastEndpoints();
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();

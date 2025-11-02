@@ -22,6 +22,101 @@ namespace OTManager.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.ToTable("UserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserTokens");
+                });
+
             modelBuilder.Entity("OTManager.Core.Entities.OT.Client", b =>
                 {
                     b.Property<Guid>("Id")
@@ -38,7 +133,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,17 +145,19 @@ namespace OTManager.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Facture", b =>
@@ -81,7 +179,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
@@ -89,25 +188,27 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("TotalPrice")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Features");
+                    b.ToTable("Facture", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Material", b =>
@@ -126,7 +227,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MeasureUnit")
                         .IsRequired()
@@ -139,23 +241,25 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("UnitCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Material", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.MaterialCost", b =>
@@ -174,7 +278,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MeasureUnit")
                         .IsRequired()
@@ -190,27 +295,29 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("Quantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,6)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<decimal>("UnitCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("CreatedAt");
 
@@ -218,7 +325,7 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("MaterialCosts");
+                    b.ToTable("MaterialCost", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Order", b =>
@@ -235,7 +342,8 @@ namespace OTManager.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -251,13 +359,14 @@ namespace OTManager.Data.Migrations
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
+                        .HasDefaultValue(0.00m);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -265,50 +374,10 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("CreatedAt");
 
-                    b.HasIndex("OrderNumber");
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OTManager.Core.Entities.OT.OrderService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Services");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.ServiceCost", b =>
@@ -362,7 +431,48 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("ServiceCosts");
+                    b.ToTable("ServiceCost");
+                });
+
+            modelBuilder.Entity("OTManager.Core.Entities.OT.ServiceOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Worker", b =>
@@ -380,7 +490,7 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("HourlyRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<string>("Name")
@@ -417,12 +527,12 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("HourlyRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<decimal>("HoursWorked")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<string>("Name")
@@ -434,7 +544,7 @@ namespace OTManager.Data.Migrations
 
                     b.Property<decimal>("TotalCost")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(2,4)")
+                        .HasColumnType("decimal(2,2)")
                         .HasDefaultValue(0m);
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -451,7 +561,80 @@ namespace OTManager.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("WorkerCosts");
+                    b.ToTable("WorkerCost");
+                });
+
+            modelBuilder.Entity("OTManager.Data.Context.ApplicationRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("OTManager.Data.Context.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("OTManager.Core.Entities.OT.Facture", b =>

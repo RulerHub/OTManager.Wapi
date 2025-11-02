@@ -1,0 +1,33 @@
+﻿@page "/Settings"
+
+
+@layout SettingsLayout
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Horizontal">
+    <FluentLabel Typo="Typography.PaneHeader">
+        Overview
+    </FluentLabel>
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">Home</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>Settings</FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</FluentStack>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Vertical"
+             Style="margin: 20px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+    <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                 VerticalAlignment="VerticalAlignment.Top"
+                 Orientation="Orientation.Vertical"
+                 Style="margin: 20px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+        <FluentLabel>Some fancy text</FluentLabel>
+    </FluentStack>
+</FluentStack>
+    
+
+@code {
+
+}

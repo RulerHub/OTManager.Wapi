@@ -1,0 +1,46 @@
+﻿@layout MainLayout
+@inherits LayoutComponentBase
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween">
+    <FluentLabel Typo="Typography.PageTitle"
+                 Color="Color.Accent">
+        Settings
+    </FluentLabel>
+</FluentStack>
+
+<FluentDivider Role="DividerRole.Presentation" />
+
+<FluentAppBar Orientation="Orientation.Horizontal" >
+    <FluentAppBarItem Href="/settings"
+                      IconActive="@(new Icons.Regular.Size20.Settings())"
+                      IconRest="@(new Icons.Regular.Size20.Settings())"
+                      Text="Settings"></FluentAppBarItem>
+    <FluentAppBarItem Href="/settings/theme"
+                      IconActive="@(new Icons.Regular.Size20.SearchSettings())"
+                      IconRest="@(new Icons.Regular.Size20.DarkTheme())"
+                      Text="Theme"></FluentAppBarItem>
+    <FluentAppBarItem Href="/settings/language"
+                      IconActive="@(new Icons.Regular.Size20.SearchSettings())"
+                      IconRest="@(new Icons.Regular.Size20.Translate())"
+                      Text="language"></FluentAppBarItem>
+    <FluentAppBarItem Href="/settings/data"
+                      IconActive="@(new Icons.Regular.Size20.SearchSettings())"
+                      IconRest="@(new Icons.Regular.Size20.DataArea())"
+                      Text="Data"></FluentAppBarItem>
+    <FluentAppBarItem Href="/settings/users"
+                      IconActive="@(new Icons.Regular.Size20.SearchSettings())"
+                      IconRest="@(new Icons.Regular.Size20.PersonSettings())"
+                      Text="Users"></FluentAppBarItem>
+</FluentAppBar>
+
+<FluentDivider Role="DividerRole.Presentation" />
+<FluentSpacer Width="4" />
+
+<div class="content">
+    @Body
+</div>
+
+
+@code {
+
+}
