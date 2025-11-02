@@ -2,10 +2,14 @@ using OTManager.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Usar el nombre de clase estático para evitar ambigüedad
+builder.AddServiceDefaults();
+
+// Usar el nombre de clase estÃ¡tico para evitar ambigÃ¼edad
 ApplicationDependencyInjection.AddApplicationDependency(builder.Services, builder.Configuration);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

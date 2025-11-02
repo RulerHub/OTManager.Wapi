@@ -20,18 +20,18 @@
     private string email = string.Empty;
     private List<string> roles = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        if (user.Identity?.IsAuthenticated == true)
-        {
-            userName = user.Identity.Name ?? user.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value ?? string.Empty;
-            email = user.Claims.FirstOrDefault(c => c.Type == "email")?.Value ?? string.Empty;
-            roles = user.Claims
-                .Where(c => c.Type == "role" || c.Type == "roles" || c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
-                .Select(c => c.Value)
-                .ToList();
-        }
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+    //     var user = authState.User;
+    //     if (user.Identity?.IsAuthenticated == true)
+    //     {
+    //         userName = user.Identity.Name ?? user.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value ?? string.Empty;
+    //         email = user.Claims.FirstOrDefault(c => c.Type == "email")?.Value ?? string.Empty;
+    //         roles = user.Claims
+    //             .Where(c => c.Type == "role" || c.Type == "roles" || c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    //             .Select(c => c.Value)
+    //             .ToList();
+    //     }
+    // }
 }

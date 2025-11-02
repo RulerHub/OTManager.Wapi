@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-using Microsoft.FluentUI.AspNetCore.Components;
+﻿using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace OTManager.Web.Extensions;
 

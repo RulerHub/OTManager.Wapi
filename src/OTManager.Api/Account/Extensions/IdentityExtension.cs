@@ -2,7 +2,6 @@
 using System.Text;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +10,7 @@ using OTManager.Api.Account.Services.Interface;
 using OTManager.Data.Account;
 using OTManager.Data.Context;
 
-namespace OTManager.Api.Extensions;
+namespace OTManager.Api.Account.Extensions;
 
 public static class IdentityExtension
 {

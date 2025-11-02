@@ -1,4 +1,4 @@
-﻿<FluentCard>
+﻿<FluentCard Class="glass-panel">
     <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
                  Orientation="Orientation.Horizontal">
         <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
@@ -30,7 +30,9 @@
         </FluentStack>
         <FluentDivider />
 
-        <ContextMenuComponent OnOverseeEvent=@OnOverseeEvent />
+        <ContextMenuComponent OnDeleteEvent="@OnDeleteEvent"
+                              OnEditEvent="@OnEditEvent"
+                              OnOverseeEvent="@OnOverseeEvent" />
 
     </FluentStack>
 </FluentCard>

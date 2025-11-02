@@ -2,6 +2,7 @@ using System.Threading.RateLimiting;
 
 using Microsoft.AspNetCore.RateLimiting;
 
+using OTManager.Api.Account.Extensions;
 using OTManager.App.Mappers;
 using OTManager.App.Services;
 using OTManager.Data.Context;

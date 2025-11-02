@@ -1,29 +1,47 @@
-﻿namespace OTManager.Web.Components.Materials.Pages;
+﻿using OTManager.Core.QueryParams;
+using OTManager.Web.ClientServices.Materials.Records;
+
+namespace OTManager.Web.Components.Materials.Pages;
 
 public partial class StocksIndex
 {
-    private IQueryable<Item>? Items { get; set; }
+    private MaterialQueryParams query = new(
+            Search: "PitBoy",
+            Code: string.Empty,
+            Name: string.Empty,
+            CreatedAt: null,
+            SortBy: "Name",
+            Descending: false,
+            Page: 1,
+            PageSize: 3);
+
+    private IQueryable<MaterialReadDto>? Items { get; set; }
+    private MaterialQueryParams Query { get => query; set => query = value; }
+    private MaterialReadDto? Item { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(500);
-        Items = GetDemoItems();
+        await GetItemsAsync();
     }
 
-    public static IQueryable<Item> GetDemoItems() => new List<Item>{
-            new ("001", "Material 1", "U", 13.5m ),
-            new ("002", "Material 2", "U", 13.5m),
-            new ("003", "Material 3", "U", 13.5m),
-            new ("004", "Material 4", "U", 13.5m),
-            new ("005", "Material 5", "U", 13.5m),
-            new ("006", "Material 6", "U", 13.5m)
-        }.AsQueryable();
+    public async Task GetItemsAsync()
+    {
+        var response = await _materialService.GetFilteredAsync(Query);
+        Items = response.AsQueryable();
+    }
 
-    public record Item(
-        string Code,
-        string Name,
-        string MeasureUnit,
-        decimal UnitCost
-        );
+    private async Task GetItemByIdAsync(string id)
+    {
+        var response = await _materialService.GetByIdAsync(id);
+        if (response is not null)
+        {
+            Item = response;
+        }
+        else
+        {
+            Item = null;
+        }
+    }
 }
 

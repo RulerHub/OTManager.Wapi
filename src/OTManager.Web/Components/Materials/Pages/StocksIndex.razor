@@ -1,21 +1,10 @@
 ﻿@page "/Materials/Index"
 
+@layout MaterialLayout
+
+@inject MaterialService _materialService;
+
 <PageTitle>Materials | Index</PageTitle>
-
-<FluentSpacer Width="4" />
-
-<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
-             Orientation="Orientation.Horizontal">
-    <FluentLabel Color="Color.Accent" Typo="Typography.PageTitle">Materials</FluentLabel>
-    <FluentDivider />
-    <FluentTextField></FluentTextField>
-    <FluentDivider />
-    <FluentButton Name="Mode" Title="View Mode"/>
-</FluentStack>
-
-<FluentSpacer Width="1" />
-<FluentDivider />
-<FluentSpacer Width="4" />
 
 <FluentGrid Spacing="1">
     @if (Items is null)
@@ -29,7 +18,7 @@
     }
     else
     {
-        foreach (Item item in Items)
+        foreach (MaterialReadDto item in Items)
         {
 
             <FluentGridItem sm="12">

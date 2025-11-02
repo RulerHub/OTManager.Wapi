@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using OTManager.App.Dtos.Materials;
@@ -9,21 +8,17 @@ namespace OTManager.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
-public class MaterialController : ControllerBase
+//[Authorize]
+public class MaterialController(IMaterialService materialService) : ControllerBase
 {
-    private readonly IMaterialService _materialService;
+    private readonly IMaterialService _materialService = materialService;
 
-    public MaterialController(IMaterialService materialService)
+    [HttpPost("filter")]
+    public async Task<IActionResult> GetAll([FromBody] MaterialQueryParams query)
     {
-        _materialService = materialService;
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] MaterialQueryParams query)
-    {
-        var (Items, TotalCount) = await _materialService.GetFilteredAsync(query);
-        return Ok(new { Items, TotalCount });
+        //var (Items, TotalCount) = await _materialService.GetFilteredAsync(query);
+        var Items = await _materialService.GetFilteredAsync(query);
+        return Ok(Items.Items);
     }
 
     [HttpGet("{id}")]

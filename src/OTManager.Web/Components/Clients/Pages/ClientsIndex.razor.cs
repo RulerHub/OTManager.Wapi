@@ -1,14 +1,8 @@
-﻿using System.Collections.ObjectModel;
-
-using Microsoft.FluentUI.AspNetCore.Components;
-
-namespace OTManager.Web.Components.Clients.Pages;
+﻿namespace OTManager.Web.Components.Clients.Pages;
 
 public partial class ClientsIndex
 {
     private IQueryable<Item>? Items { get; set; }
-    private ObservableCollection<Item> OverseeItems { get; set; } = [];
-    private int SelectedIndex = 0;
 
     private Item? NewItem { get; set; }
 
@@ -16,45 +10,19 @@ public partial class ClientsIndex
     {
         await Task.Delay(500);
         Items = GetDemoItems();
-        OverseeItems.CollectionChanged += (_, __) 
-            => InvokeAsync(StateHasChanged);
     }
 
-    public void OverseeClient(Item item)
+    private void OnDeleteEvent()
     {
-        OverseeItems.Add(item);
+
     }
-
-    public void StopOverseeByIndex(int index)
+    private void OnEditEvent()
     {
-        if (index < 0 || index >= OverseeItems.Count) return;
-        var wasSelected = SelectedIndex == index;
-        OverseeItems.RemoveAt(index);
 
-        if (OverseeItems.Count == 0) { 
-            SelectedIndex   = -1;
-            InvokeAsync(StateHasChanged);
-            return;
-        }
-
-        if (wasSelected)
-        {
-            SelectedIndex = Math.Min(index, OverseeItems.Count - 1);
-        }
-        else if (index < SelectedIndex)
-        {
-            SelectedIndex--;
-        }
-
-        InvokeAsync(StateHasChanged);
     }
-
-    public void HandleTabClose(FluentTab tab)
+    private void OnOverseeEvent()
     {
-        var client = (Item)tab.Data!;
-        var index = OverseeItems.IndexOf(client);
-        if (index == -1) return;
-        StopOverseeByIndex(index);
+
     }
 
     public static IQueryable<Item> GetDemoItems() => new List<Item>{

@@ -21,13 +21,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-        builder.Entity<IdentityUserLogin<Guid>>(e => {
+        builder.Entity<IdentityUserLogin<Guid>>(e =>
+        {
             e.HasKey(l => new { l.LoginProvider, l.ProviderKey });
         });
-        builder.Entity<IdentityUserRole<Guid>>(e => {
+        builder.Entity<IdentityUserRole<Guid>>(e =>
+        {
             e.HasKey(r => new { r.UserId, r.RoleId });
         });
-        builder.Entity<IdentityUserToken<Guid>>(e => {
+        builder.Entity<IdentityUserToken<Guid>>(e =>
+        {
             e.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
         });
     }

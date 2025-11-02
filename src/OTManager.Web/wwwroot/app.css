@@ -189,3 +189,16 @@ code {
         right: unset;
     }
 }
+
+.glass-panel {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+    .glass-panel:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }

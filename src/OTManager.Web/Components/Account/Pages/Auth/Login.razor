@@ -1,6 +1,6 @@
 @page "/login"
 @using Microsoft.AspNetCore.Components.Authorization
-@inject OTManager.Web.ClientServices.Authorize.AuthenticationService.IAuthService AuthService
+
 @inject NavigationManager Nav
 @inject AuthenticationStateProvider AuthStateProvider
 
@@ -8,7 +8,7 @@
 
 <input placeholder="Usuario" @bind="username" />
 <input placeholder="Password" type="password" @bind="password" />
-<button @onclick="HandleLogin">Login</button>
+@* <button @onclick="HandleLogin">Login</button> *@
 <p>@message</p>
 
 @code {
@@ -16,21 +16,21 @@
     private string password = string.Empty;
     private string message = string.Empty;
 
-    private async Task HandleLogin()
-    {
-        var res = await AuthService.LoginAsync(new OTManager.Web.ClientServices.DTOs.Identity.LoginRequest(username, password));
-        if (res is null || !res.Success)
-        {
-            message = res?.Message ?? "Error en login";
-            return;
-        }
+    // private async Task HandleLogin()
+    // {
+    //     var res = await AuthService.LoginAsync(new OTManager.Web.ClientServices.DTOs.Identity.LoginRequest(username, password));
+    //     if (res is null || !res.Success)
+    //     {
+    //         message = res?.Message ?? "Error en login";
+    //         return;
+    //     }
 
-        // Notify provider in case not already done
-        if (AuthStateProvider is OTManager.Web.ClientServices.Authorize.AuthenticationService.ApiAuthenticationStateProvider provider)
-        {
-            provider.NotifyUserAuthentication(res.Token!);
-        }
+    //     // Notify provider in case not already done
+    //     if (AuthStateProvider is OTManager.Web.ClientServices.Authorize.AuthenticationService.ApiAuthenticationStateProvider provider)
+    //     {
+    //         provider.NotifyUserAuthentication(res.Token!);
+    //     }
 
-        Nav.NavigateTo("/");
-    }
+    //     Nav.NavigateTo("/");
+    // }
 }

@@ -1,45 +1,36 @@
-using Microsoft.AspNetCore.Components.Authorization;
-
-using OTManager.Web.ClientServices.Authorize;
-using OTManager.Web.ClientServices.Authorize.AuthenticationService;
+using OTManager.Web.ClientServices.Materials;
 using OTManager.Web.Components;
 using OTManager.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 
 ApplicationDependencyInjection.AddApplicationDependency(builder.Services, builder.Configuration);
 
-builder.Services.AddScoped<IAuthService, AuthService>();
-// Use cookie-based token storage in the browser via JS
-builder.Services.AddScoped<IAuthTokenProvider, CookieAuthTokenProvider>();
-// Authorization message handler depends on IAuthTokenProvider
-builder.Services.AddTransient<AuthorizationMessageHandler>();
-// Register the authentication state provider and the notifier interface
-builder.Services.AddScoped<ApiAuthenticationStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<ApiAuthenticationStateProvider>());
-builder.Services.AddScoped<IAuthStateNotifier>(sp => sp.GetRequiredService<ApiAuthenticationStateProvider>());
-
-// Configure named HttpClient with AuthorizationMessageHandler
+// ToDo: move the logic to extension class
 builder.Services.AddHttpClient("ApiClient", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7257/api/");
-})
-.AddHttpMessageHandler<AuthorizationMessageHandler>();
+});
 
-// Register UserService to use the named client "ApiClient"
-builder.Services.AddScoped<UserService>(sp =>
+builder.Services.AddScoped<MaterialService>(sp =>
 {
     var factory = sp.GetRequiredService<IHttpClientFactory>();
     var client = factory.CreateClient("ApiClient");
-    return new UserService(client);
+    return new MaterialService(client);
 });
+
+// ^^ move the logic to extension class ^^
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore(); // Use AddAuthorizationCore for Blazor
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.AddLocalizationBuilder();
 

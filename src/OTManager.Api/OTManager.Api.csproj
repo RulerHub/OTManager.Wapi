@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\dist\OTManager.ServiceDefaults\OTManager.ServiceDefaults.csproj" />
     <ProjectReference Include="..\OTManager.App\OTManager.App.csproj" />
   </ItemGroup>
 

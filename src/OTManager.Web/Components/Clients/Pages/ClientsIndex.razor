@@ -11,59 +11,6 @@
     <FluentButton Name="Mode" Title="View Mode"/>
 </FluentStack>
 
-<FluentTabs Orientation="Orientation.Horizontal"
-            ShowClose
-            ShowActiveIndicator
-            @bind-SelectedIndex="@SelectedIndex"
-            OnTabClose="@HandleTabClose" >
-    @if (OverseeItems is null)
-    {
-        <FluentLabel>Noting to see here</FluentLabel>
-    }
-    else
-    {
-        foreach (Item item in OverseeItems)
-        {
-            <FluentTab @key="item.Code"
-                       Icon="@(new Icons.Regular.Size20.PersonInfo())"
-                       Label="@item.Name">
-                <OverseeMenuComponent>
-                    <FluentLabel>@item.Code</FluentLabel>
-                    <FluentLabel>@item.Name</FluentLabel>
-                    <FluentLabel>@item.UnitCost</FluentLabel>
-                </OverseeMenuComponent>
-            </FluentTab>
-        }
-    }   
-</FluentTabs>
-
-@* <FluentTabs Orientation="Orientation.Horizontal"
-            ShowClose
-            ShowActiveIndicator
-            @bind-SelectedIndex="@SelectedIndex"
-            OnTabClose="@HandleTabClose">
-    @if (OverseeItems is null)
-    {
-        <FluentLabel>Noting to see here</FluentLabel>
-    }
-    else
-    {
-        for (int i = 0; i < OverseeItems.Count; i++)
-        {
-            <FluentTab @key="OverseeItems[i].Code"
-                       Icon="@(new Icons.Regular.Size20.PersonInfo())"
-                       Label="@OverseeItems[i].Name">
-                <OverseeMenuComponent>
-                    <FluentLabel>@OverseeItems[i].Code</FluentLabel>
-                    <FluentLabel>@OverseeItems[i].Name</FluentLabel>
-                    <FluentLabel>@OverseeItems[i].UnitCost</FluentLabel>
-                    <FluentButton OnClick="() => StopOverseeByIndex(i)">X</FluentButton>
-                </OverseeMenuComponent>
-            </FluentTab>
-        }
-    }
-</FluentTabs> *@
-
 <FluentSpacer Width="1" />
 <FluentDivider />
 <FluentSpacer Width="3" />
@@ -72,10 +19,7 @@
     @if (Items is null)
     {
         <FluentGridItem sm="12">
-            <ClientListViewComponent Content="There are no content here"
-                               LastModification="DateTime.UtcNow"
-                               Status="Empty"
-                               Username="Anonymous" />
+            <p>Add some</p>
         </FluentGridItem>
     }
     else
@@ -85,10 +29,12 @@
 
             <FluentGridItem sm="12">
                 <ClientListViewComponent Content="@item.Name"
-                                   LastModification="DateTime.UtcNow"
-                                   Status="Empty"
-                                   Username="Anonymous"
-                                   OnOverseeEvent="@(() => OverseeClient(item))"/>
+                                         LastModification="DateTime.UtcNow"
+                                         Status="Empty"
+                                         Username="Anonymous"
+                                         OnDeleteEvent="@OnDeleteEvent"
+                                         OnEditEvent="@OnEditEvent"
+                                         OnOverseeEvent="@OnOverseeEvent" />
             </FluentGridItem>
 
         }
