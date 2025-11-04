@@ -1,0 +1,77 @@
+@using System.ComponentModel.DataAnnotations
+@implements IDialogContentComponent<EditeMaterialForm.UpdateMaterialDto>
+
+<FluentDialogHeader>
+
+</FluentDialogHeader>
+<FluentDialogBody>
+    <EditForm EditContext="@_editContext" FormName="edit-material">
+        <DataAnnotationsValidator />
+        <FluentLabel Style="margin-bottom: 16px;">
+            Mensaje de validación
+        </FluentLabel>
+
+        <FluentTextField Name="register-name"
+                         @bind-Value="@Content.Name"
+                         Label="Name" />
+
+        <FluentTextField Name="register-measure"
+                         @bind-Value="@Content.MeasureUnit"
+                         Label="Measure Unit" />
+
+        <FluentNumberField Name="register-price"
+                           @bind-Value="@Content.UnitCost"
+                           Label="Price" />
+        
+    </EditForm>
+</FluentDialogBody>
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent"
+                  Disabled="@(!_editContext.Validate())"
+                  OnClick="@SaveAsync">
+        Save
+    </FluentButton>
+    <FluentButton Appearance="Appearance.Accent"
+                  OnClick="@CancelAsync">
+        Cancel
+    </FluentButton>
+</FluentDialogFooter>
+
+@code {
+    private EditContext _editContext = default!;
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+    [Parameter]
+    public UpdateMaterialDto Content { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(Content);
+    }
+    private async Task SaveAsync()
+    {
+        if (_editContext.Validate())
+        {
+            await Dialog.CloseAsync(Content);
+        }
+    }
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
+
+    public record UpdateMaterialDto
+    {
+        [MinLength(9)]
+        [MaxLength(16)]
+        public string Code { get; set; } = string.Empty;
+        [MinLength(4)]
+        [MaxLength(64)]
+        public string Name { get; set; } = string.Empty;
+        [MinLength(1)]
+        [MaxLength(6)]
+        public string MeasureUnit { get; set; } = string.Empty;
+        [DataType("decimal(18,6)")]
+        public decimal UnitCost { get; set; }
+    } 
+}

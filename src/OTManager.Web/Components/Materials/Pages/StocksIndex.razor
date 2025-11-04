@@ -1,8 +1,10 @@
-﻿@page "/Materials/Index"
+@page "/Materials/Index"
 
 @layout MaterialLayout
 
 @inject MaterialService _materialService;
+@inject IDialogService _dialogService;
+@inject NavigationManager NavigationManager;
 
 <PageTitle>Materials | Index</PageTitle>
 
@@ -10,7 +12,8 @@
     @if (Items is null)
     {
         <FluentGridItem sm="12">
-            <MaterialListViewComponent Content="There are no content here"
+            <ListViewComponent Class="glass-panel"
+                               Content="There are no content here"
                                LastModification="DateTime.UtcNow"
                                Status="Empty"
                                Username="Anonymous" />
@@ -22,10 +25,14 @@
         {
 
             <FluentGridItem sm="12">
-                <MaterialListViewComponent Content="@item.Name"
+                <ListViewComponent Class="glass-panel"
+                                   Content="@item.Name"
                                    LastModification="DateTime.UtcNow"
                                    Status="Empty"
-                                   Username="Anonymous" />
+                                   Username="Anonymous"
+                                   OnOverseeEvent="@(() => OnOversee(item.Id))"
+                                   OnEditEvent="@(() => OnEdit(item.Id))"
+                                   OnDeleteEvent="@(() => OnDelete(item.Id))" />
             </FluentGridItem>
 
         }

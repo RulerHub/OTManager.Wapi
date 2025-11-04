@@ -199,6 +199,27 @@ code {
 }
 
     .glass-panel:hover {
-        background: rgba(255,255,255,0.3);
         transform: translateY(-2px);
     }
+
+:root[data-theme="dark"] .glass-panel {
+    background: rgba(0,0,0,0.4);
+    color: var(--neutral-foreground-rest);
+}
+
+:root[data-theme="light"] .glass-panel {
+    background: rgba(255,255,255,0.4);
+    color: var(--neutral-foreground-rest);
+}
+
+.season-image {
+    position: absolute;
+    width: 11.11vw;
+    height: auto;
+    background-image: url('demoimage.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    z-index: 10;
+    pointer-events: none;
+}

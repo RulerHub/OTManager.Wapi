@@ -1,10 +1,19 @@
-<FluentCard Class="glass-panel">
+<FluentCard Class="@Class">
     <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
                  Orientation="Orientation.Horizontal">
         <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
                      VerticalAlignment="VerticalAlignment.Center"
                      Orientation="Orientation.Horizontal">
-            <FluentLabel Typo="Typography.Body">Icono</FluentLabel>
+
+            <FluentIcon Icon="@Icons.Regular.Size20.PersonAdd"
+                        Width="50"
+                        Color="Color.Success"
+                        Title="Recently added" />
+            <FluentIcon Icon="@Icons.Regular.Size20.Person"
+                        Width="50"
+                        Color="Color.Neutral"
+                        Title="Client" />
+
             <FluentDivider Role="DividerRole.Presentation" Orientation="Orientation.Vertical" />
 
             <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
@@ -20,22 +29,10 @@
 
         </FluentStack>
         <FluentDivider />
-        <FluentButton Name="Mode" 
-            Title="View Mode" 
-            IconStart="@(new Icons.Regular.Size20.Options())"
-            OnClick="@OnClickEvent"/>
+
+        <ContextMenuComponent OnDeleteEvent="@OnDeleteEvent"
+                              OnEditEvent="@OnEditEvent"
+                              OnOverseeEvent="@OnOverseeEvent" />
+
     </FluentStack>
 </FluentCard>
-
-@code {
-    [Parameter]
-    public string Content { get; set; } = string.Empty;
-    [Parameter]
-    public string Username { get; set; } = string.Empty;
-    [Parameter]
-    public string Status { get; set; } = string.Empty;
-    [Parameter]
-    public DateTime LastModification { get; set; }
-    [Parameter]
-    public EventCallback OnClickEvent { get; set; }
-}

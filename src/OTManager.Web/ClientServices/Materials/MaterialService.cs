@@ -1,4 +1,4 @@
-﻿using OTManager.Core.QueryParams;
+using OTManager.Core.QueryParams;
 using OTManager.Web.ClientServices.Materials.Records;
 
 namespace OTManager.Web.ClientServices.Materials;

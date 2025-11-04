@@ -15,8 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTManager.App", "src\OTMana
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{C5CFB38B-0E9A-48DF-84CB-8F4944D11A65}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Code_Of_Conduct.md = Code_Of_Conduct.md
+		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
+		SECURITY.md = SECURITY.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTManager.Web", "src\OTManager.Web\OTManager.Web.csproj", "{9F3A116A-1006-4770-81E4-D57CD3583D4C}"
