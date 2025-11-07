@@ -32,23 +32,10 @@ public partial class StocksIndex
     {
         NavigationManager.NavigateTo($"/oversee/{Id}");
     }
-
-    public async Task OnEdit(Guid Id)
+    
+    public void OnEdit(Guid Id)
     {
-        //var data = await GetItemByIdAsync(Id);
-
-        //var dialog = await _dialogService.ShowDialogAsync<EditeMaterialForm>(data,
-        //    new DialogParameters
-        //    {
-        //        Height = "400px",
-        //        Title = $"Edite {data.Name}",
-        //        PreventDismissOnOverlayClick = true,
-        //        PreventScroll = true
-        //    });
-        //var result = await dialog.Result;
-        //if (result.Cancelled && result.Data != null)
-        //    // ToDo: manage the update method
-        //    await _dialogService.ShowSuccessAsync($"Updated: {data.Name}");
+        NavigationManager.NavigateTo($"/edite/{Id}");
     }
 
     public async Task OnDelete(Guid Id)
