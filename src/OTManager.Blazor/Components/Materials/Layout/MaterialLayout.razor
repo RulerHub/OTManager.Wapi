@@ -1,0 +1,18 @@
+@layout MainLayout
+
+@inherits LayoutComponentBase
+
+@inject IStringLocalizer<UiLanguage> UiLang
+
+<FluentStack Orientation="Orientation.Vertical" Style="height:100%; overflow:hidden;">
+    <FluentSpacer Width="4" />
+    <FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+                 Orientation="Orientation.Horizontal">
+        <FluentLabel Color="Color.Accent" Typo="Typography.PageTitle">Materials</FluentLabel>
+    </FluentStack>
+
+    <FluentSpacer Width="2" />
+    <FluentStack Orientation="Orientation.Vertical" Style="flex:1; overflow-y:auto; padding:1rem;">
+        @Body
+    </FluentStack>
+</FluentStack>

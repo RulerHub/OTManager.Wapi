@@ -1,0 +1,37 @@
+@page "/edite/{Id:guid}/edite-material"
+@using OTManager.App.Dtos.Materials
+
+@layout MaterialLayout
+
+@inject IMaterialService _materialService;
+
+@if (Item is not null)
+{
+    <PageTitle>@Item.Name | Edite</PageTitle>
+
+    <p>@Item.Code</p>
+    <p>@Item.Name</p>
+}
+else
+{
+    <p>error al mostrar el item o fue eliminado</p>
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; } = default!;
+
+    private ReadMaterialDto Item { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100);
+
+        Item = await GetItemByIdAsync(Id);
+    }
+
+    private async Task<ReadMaterialDto> GetItemByIdAsync(Guid id)
+    {
+        return await _materialService.GetByIdAsync(id);
+    }
+}

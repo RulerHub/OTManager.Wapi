@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\OTManager.Api\OTManager.Api.csproj" />
-    <ProjectReference Include="..\..\src\OTManager.Web\OTManager.Web.csproj" />
+    <ProjectReference Include="..\..\src\OTManager.Blazor\OTManager.Web.csproj" />
   </ItemGroup>
 
 </Project>

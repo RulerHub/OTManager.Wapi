@@ -1,0 +1,44 @@
+@page "/create/new-material"
+
+@layout MaterialLayout
+
+@inject IMaterialService _materialService;
+@inject NavigationManager NavigationManager;
+
+<FluentEditForm EditContext="_editContext" OnValidSubmit="Create">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <FluentLabel Style="margin-bottom: 16px;">
+        Mensaje de validación
+    </FluentLabel>
+
+    <FluentTextField Name="register-name"
+                     Required
+                     @bind-Value="@Content.Code"
+                     Label="Code" />
+
+    <FluentTextField Name="register-name"
+                     Required
+                     @bind-Value="@Content.Name"
+                     Label="Name" />
+
+    <FluentTextField Name="register-measure"
+                     Required
+                     @bind-Value="@Content.MeasureUnit"
+                     Label="Measure Unit" />
+
+    <FluentNumberField Name="register-price"
+                       Required
+                       @bind-Value="@Content.UnitCost"
+                       Label="Price" />
+    
+</FluentEditForm>
+<FluentButton Appearance="Appearance.Accent"
+              OnClick="@Create">
+    Save
+</FluentButton>
+
+<FluentButton Appearance="Appearance.Accent"
+              OnClick="@Cancel">
+    Cancel
+</FluentButton>

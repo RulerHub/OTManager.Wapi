@@ -1,8 +1,9 @@
+using OTManager.Core.Entities.Abstracts;
+
 namespace OTManager.App.Dtos.Materials;
 
-public class ReadMaterialDto
+public class ReadMaterialDto : Auditable<Guid>
 {
-    public Guid Id { get; set; }
     public string Code { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string MeasureUnit { get; set; } = string.Empty;

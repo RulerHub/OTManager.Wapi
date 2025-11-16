@@ -31,6 +31,10 @@ public class MaterialMapper : IMaterialMapper
             Code = entity.Code,
             Name = entity.Name,
             MeasureUnit = entity.MeasureUnit,
-            UnitCost = entity.UnitCost
+            UnitCost = entity.UnitCost,
+            CreatedAt = entity.CreatedAt,
+            CreatedBy = entity.CreatedBy,
+            UpdatedAt = entity.UpdatedAt,
+            UpdatedBy = entity.UpdatedBy
         };
 }
