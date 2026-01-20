@@ -1,5 +1,4 @@
 @page "/oversee/{Id:guid}/oversee-material"
-@using OTManager.App.Dtos.Materials
 
 @layout MaterialLayout
 
@@ -56,24 +55,4 @@
 else
 {
     <p>error al mostrar el item o fue eliminado</p>
-}
-
-
-
-@code {
-    [Parameter]
-    public Guid Id { get; set; } = default!;
-
-    private ReadMaterialDto Item { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(100);
-        Item = await GetItemByIdAsync(Id);
-    }
-
-    private async Task<ReadMaterialDto> GetItemByIdAsync(Guid Id)
-    {
-        return await _materialService.GetByIdAsync(Id);
-    }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 using OTManager.Data.Context;
@@ -41,8 +41,7 @@ namespace OTManager.Data.UoW
         /// <inheritdoc/>
         public async Task BeginTransactionAsync()
         {
-            if (_transaction is null)
-                _transaction = await _context.Database.BeginTransactionAsync();
+            _transaction ??= await _context.Database.BeginTransactionAsync();
         }
 
         /// <inheritdoc/>

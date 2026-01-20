@@ -34,16 +34,15 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
         });
     }
-
     public override int SaveChanges()
     {
-        Audited.AplicarAuditoria(ChangeTracker);
+        Audited.AplicarAuditoria(ChangeTracker, "none");
         return base.SaveChanges();
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        Audited.AplicarAuditoria(ChangeTracker);
+        Audited.AplicarAuditoria(ChangeTracker, "none");
         return base.SaveChangesAsync(cancellationToken);
     }
 }

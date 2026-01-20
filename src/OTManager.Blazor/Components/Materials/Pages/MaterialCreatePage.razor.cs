@@ -9,8 +9,7 @@ public partial class MaterialCreatePage
 {
     private EditContext _editContext = default!;
     [Parameter]
-    public WriteMaterialDto Content { get; set; } = new WriteMaterialDto()
-    { Code = "001", Name = "Name" };
+    public WriteMaterialDto Content { get; set; } = new();
 
     protected override void OnInitialized()
     {
