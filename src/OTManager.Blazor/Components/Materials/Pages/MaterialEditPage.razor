@@ -1,0 +1,65 @@
+@page "/edite/{Id:guid}/edite-material"
+@using OTManager.App.Dtos.Materials
+
+@layout MaterialLayout
+
+@inject IMaterialService _materialService;
+@inject NavigationManager NavigationManager;
+
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+    <FluentEditForm EditContext="_editContext" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <FluentLabel Style="margin-bottom: 16px;">
+            Mensaje de validación
+        </FluentLabel>
+        <FluentCard>
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+                <FluentGrid Justify="JustifyContent.Center" Spacing="2">
+                    <FluentGridItem sm="12" lg="12" xl="12">
+                        <FluentTextField Name="register-name"
+                                         Disabled
+                                         @bind-Value="@Content.Code"
+                                         Label="Code" />
+                    </FluentGridItem>
+
+                    <FluentGridItem sm="12">
+                        <FluentTextField Name="register-name"
+                                         Required
+                                         @bind-Value="@Content.Name"
+                                         Label="Name" />
+                    </FluentGridItem>
+
+                    <FluentGridItem sm="12">
+                        <FluentTextField Name="register-measure"
+                                         Disabled
+                                         @bind-Value="@Content.MeasureUnit"
+                                         Label="Measure Unit" />
+                    </FluentGridItem>
+
+                    <FluentGridItem sm="12">
+                        <FluentNumberField Name="register-price"
+                                           Required
+                                           @bind-Value="@Content.UnitCost"
+                                           Label="Price" />
+                    </FluentGridItem>
+
+                </FluentGrid>
+            </FluentStack>
+        </FluentCard>
+    </FluentEditForm>
+</FluentStack>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.End">
+    <FluentButton Appearance="Appearance.Accent"
+                  OnClick="@Save">
+        Save
+    </FluentButton>
+
+    <FluentButton Appearance="Appearance.Accent"
+                  OnClick="@Cancel">
+        Cancel
+    </FluentButton>
+</FluentStack>
+

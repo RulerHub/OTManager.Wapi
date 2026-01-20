@@ -6,6 +6,22 @@ namespace OTManager.App.Mappers.Implements;
 
 public class MaterialMapper : IMaterialMapper
 {
+    public void FromReadToUpdate(UpdateMaterialDto updateMaterial, ReadMaterialDto readMaterial)
+    {
+        updateMaterial.Code = readMaterial.Code;
+        updateMaterial.Name = readMaterial.Name;
+        updateMaterial.MeasureUnit = readMaterial.MeasureUnit;
+        updateMaterial.UnitCost = readMaterial.UnitCost;
+    }
+
+    public void FromUpdateDto(Material entity, ReadMaterialDto dto)
+    {
+        entity.Code = dto.Code;
+        entity.Name = dto.Name;
+        entity.MeasureUnit = dto.MeasureUnit;
+        entity.UnitCost = dto.UnitCost;
+    }
+
     public void FromUpdateDto(Material entity, UpdateMaterialDto dto)
     {
         entity.Code = dto.Code;
@@ -31,6 +47,10 @@ public class MaterialMapper : IMaterialMapper
             Code = entity.Code,
             Name = entity.Name,
             MeasureUnit = entity.MeasureUnit,
-            UnitCost = entity.UnitCost
+            UnitCost = entity.UnitCost,
+            CreatedAt = entity.CreatedAt,
+            CreatedBy = entity.CreatedBy,
+            UpdatedAt = entity.UpdatedAt,
+            UpdatedBy = entity.UpdatedBy
         };
 }

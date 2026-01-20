@@ -1,4 +1,5 @@
 using OTManager.Api.Extensions;
+using OTManager.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 

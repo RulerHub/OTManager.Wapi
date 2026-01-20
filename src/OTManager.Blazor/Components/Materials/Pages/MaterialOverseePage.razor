@@ -1,0 +1,58 @@
+@page "/oversee/{Id:guid}/oversee-material"
+
+@layout MaterialLayout
+
+@inject IMaterialService _materialService;
+
+@if(Item is not null)
+{
+    <PageTitle>@Item.Name | Oversee</PageTitle>
+
+    <FluentGrid Spacing="2">
+        <FluentGridItem sm="6">
+            <FluentCard>
+                <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                             VerticalAlignment="VerticalAlignment.Center">
+                    <p>@Item.Code</p>
+                    <p>@Item.Name</p>
+                    <p>@Item.MeasureUnit</p>
+                    <p>@Item.UnitCost</p>
+                </FluentStack>
+                <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                             VerticalAlignment="VerticalAlignment.Center">
+                    <p>Created at: @Item.CreatedAt</p>
+                    <p>Created by: @Item.CreatedBy</p>
+                    <p>Updated at: @Item.UpdatedAt</p>
+                    <p>Updated by: @Item.UpdatedBy</p>
+                </FluentStack>
+            </FluentCard>            
+        </FluentGridItem>
+        <FluentGridItem sm="6">
+            <FluentCard>
+                <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                             VerticalAlignment="VerticalAlignment.Center"
+                             Orientation="Orientation.Vertical">
+                    <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                                 VerticalAlignment="VerticalAlignment.Center">
+                        <FluentButton>Button</FluentButton>
+                        <p>bla bla bla button</p>
+                    </FluentStack>
+                    <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                                 VerticalAlignment="VerticalAlignment.Center">
+                        <FluentButton>Button</FluentButton>
+                        <p>bla bla bla button</p>
+                    </FluentStack>
+                    <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                                 VerticalAlignment="VerticalAlignment.Center">
+                        <FluentButton>Button</FluentButton>
+                        <p>bla bla bla button</p> 
+                    </FluentStack>
+                </FluentStack>
+            </FluentCard>
+        </FluentGridItem>
+    </FluentGrid>
+}
+else
+{
+    <p>error al mostrar el item o fue eliminado</p>
+}

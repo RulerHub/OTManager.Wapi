@@ -53,7 +53,7 @@ public class MaterialService : IMaterialService
         }
     }
 
-    public async Task<bool> UpdateAsync(Guid id, UpdateMaterialDto dto)
+    public async Task<bool> UpdateAsync(Guid id, ReadMaterialDto dto)
     {
         await _unitOfWork.BeginTransactionAsync();
         try

@@ -1,0 +1,80 @@
+@page "/Materials/Index"
+
+@layout MaterialLayout
+
+@using OTManager.App.Dtos.Materials
+@using OTManager.App.Services.Interfaces
+@using OTManager.Core.QueryParams
+@using Microsoft.AspNetCore.Components;
+
+@inject IMaterialService _materialService;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Home</PageTitle>
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.SpaceBetween"
+             VerticalAlignment="VerticalAlignment.Top"
+             Orientation="Orientation.Horizontal">
+    <FluentStack HorizontalAlignment="HorizontalAlignment.Start"
+                 VerticalAlignment="VerticalAlignment.Center"
+                 Orientation="Orientation.Horizontal">
+        <FluentButton IconStart="@(new Icons.Regular.Size20.Add())"
+                        OnClick="OnCreate">Add</FluentButton>
+        <FluentPaginator State="@pagination" />
+        <FluentSearch type="search"
+                      Autofocus=true
+                      @bind-Value=nameFilter
+                      @oninput=HandlerMaterialFilter
+                      @bind-Value:after="HandleClear"
+                      Placeholder="Material name..."/>
+    </FluentStack>  
+
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">Home</FluentBreadcrumbItem>
+        <FluentBreadcrumbItem >Materials</FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</FluentStack>
+
+<FluentDivider Role="DividerRole.Presentation" />
+
+@if (Items is null)
+{
+    <FluentStack HorizontalAlignment="HorizontalAlignment.Center"
+                 VerticalAlignment="VerticalAlignment.Center">
+        <FluentProgressRing Width="200"/>
+    </FluentStack>
+}
+else
+{
+    <FluentGrid Spacing="2" Justify="JustifyContent.FlexStart" Style="overflow-y:auto; overflow-x:clip;">
+        <FluentGridItem sm="12">
+            <FluentDataGrid Id="materials"
+                            AutoFocus
+                            Items="@FilteredItems"
+                            AutoItemsPerPage="false"
+                            ResizableColumns="true"
+                            Pagination="@pagination"
+                            TGridItem="ReadMaterialDto"
+                            HeaderCellAsButtonWithMenu="true"
+                            GridTemplateColumns="10fr 1fr 1fr 1fr"
+                            DisplayMode="DataGridDisplayMode.Table"
+                            ResizeType="DataGridResizeType.Discrete">
+                <PropertyColumn Title="Code" Property="@(c => c!.Code)" Sortable="true" Align="Align.Start"/>
+                <PropertyColumn Title="Name" Property="@(c => c!.Name)" Sortable="true" Align="Align.Start">
+                    <ColumnOptions>
+                        <div class="search-box">
+                            <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput=HandlerMaterialFilter @bind-Value:after="HandleClear" Placeholder="Material name..." />
+                        </div>
+                    </ColumnOptions>
+                </PropertyColumn>
+                <PropertyColumn Title="Measure" Property="@(c => c!.MeasureUnit)" Sortable="true" Align="Align.Center" />
+                <PropertyColumn Title="Cost" Property="@(c => c!.UnitCost)" Sortable="true" Align="Align.End" />
+                <TemplateColumn Title="Actions" Align="Align.End">
+                    <ContextMenuComponent OnOverseeEvent="@(() => OnOversee(context.Id))"
+                                          OnEditEvent="@(()=> OnEdit(context.Id))"
+                                          OnDeleteEvent="@(()=> OnDelete(context.Id))" />
+                </TemplateColumn>
+            </FluentDataGrid>
+        </FluentGridItem>
+    </FluentGrid>
+}

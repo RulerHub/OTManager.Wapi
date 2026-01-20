@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace OTManager.Data.Audites;
@@ -10,7 +10,8 @@ public static class Audited
     /// </summary>
     /// <param name="changeTracker">El ChangeTracker del DbContext.</param>
     /// <param name="userName">El nombre del usuario que realiza la acción (opcional, por defecto 'Anonymous').</param>
-    public static void AplicarAuditoria(ChangeTracker changeTracker, string userName = "Anonymous")
+    ///
+    public static void AplicarAuditoria(ChangeTracker changeTracker, string userName)
     {
         var now = DateTime.UtcNow;
         foreach (var entry in changeTracker.Entries())
@@ -39,7 +40,7 @@ public static class Audited
                     entry.Property("CreatedBy").IsModified = false;
                     entry.Property("UpdatedAt").IsModified = false;
                     entry.Property("UpdatedBy").IsModified = false;
-                    // SoftDelete: descomentar si implementas las propiedades DeletedAt y DeletedBy
+                    // SoftDelete: des comentar si implementas las propiedades DeletedAt y DeletedBy
                     //entry.Property("DeletedAt").CurrentValue = now;
                     //entry.Property("DeletedBy").CurrentValue = userName;
                     //entry.State = EntityState.Modified; // Para soft delete

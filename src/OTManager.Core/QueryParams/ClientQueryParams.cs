@@ -1,4 +1,8 @@
-﻿namespace OTManager.Core.QueryParams;
+namespace OTManager.Core.QueryParams;
 
 public record ClientQueryParams
-(string? Search, string? SortBy, bool Descending = false, int Page = 1, int PageSize = 10);
+(string? Search,
+ string? SortBy,
+ bool Descending = false,
+ int Page = 1,
+ int PageSize = 10);
